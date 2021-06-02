@@ -35,7 +35,18 @@ data
 
 #remove spaces
 data<-stripWhitespace(data)
-data<-paste(data,collapse = " ")
+#data<-paste(data,collapse = " ")
 data
-wordcloud(data,min.freq =1,max.words=Inf,scale=c(1,1),random.order =F)
-?wordcloud
+wordcloud(data,min.freq=3,max.words=Inf,scale=c(1,1),random.order=FALSE,col=rainbow(3))
+
+#comparison
+
+corpusData<-Corpus(VectorSource(data))
+corpusData
+tdm<-TermDocumentMatrix(corpusData)
+wordDoc.row<-as.matrix(tdm)
+colnames(wordDoc.row)<-c("MONKEY","ONE SUMMER","BODY SNATCHER")
+wordDoc.row
+
+#create Comparison Word Cloud
+comparison.cloud(wordDoc.row,scale=c(1,1),max.words =Inf)
